@@ -1,0 +1,482 @@
+/* Reseteo de márgenes y paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo para el body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eaf7ea; /* Verde de fondo */
+    line-height: 1.6; /* Mejora la legibilidad */
+    color: #2d4a2d;
+}
+
+/* Estilos de la cabecera */
+.header {
+    background-color: #00401a; /* Verde de los botones */
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Añadir sombra sutil */
+}
+
+/* Estilo para la barra de navegación */
+.nav {
+    display: flex;
+    justify-content: space-between;  /* Alinea los elementos en los extremos */
+    align-items: center;
+    width: 100%;
+}
+
+.nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center; /* Centra los elementos dentro de la barra */
+}
+
+.nav ul li {
+    margin: 0 15px;
+}
+
+.nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav ul li a:hover {
+    color: #a1c85e; /* Verde más claro al pasar el ratón */
+    transform: translateY(-2px); /* Ligera animación de elevación */
+}
+
+/* Aseguramos que el contenedor use Flexbox */
+.auth-buttons {
+    display: flex;
+    flex-direction: column;  /* Alinea los botones en columna */
+    justify-content: center; /* Centra los botones en el contenedor */
+    align-items: center;     /* Centra los botones horizontalmente */
+    height: 100%;            /* Asegura que tome todo el espacio disponible */
+}
+
+/* Estilo para los botones generales */
+button, .btn-login, .btn-signup, .btn-logout {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin: 10px 0;  /* Espaciado entre botones */
+    transition: background-color 0.3s ease;
+}
+
+/* Estilo para el botón de "Login" */
+.btn-login {
+    background-color: #fff;
+    color: #00401a;
+    border: 2px solid #00401a;
+}
+
+.btn-login:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para el botón de "Sign Up" */
+.btn-signup {
+    background-color: #00401a;
+    color: #fff;
+    border: 2px solid #00401a;
+}
+
+.btn-signup:hover {
+    background-color: #003017;
+    color: #fff;
+}
+
+/* Estilo para el botón de "Cerrar sesión" */
+.btn-logout {
+    background-color: #00401a;
+    color: white;
+    border: 2px solid #00401a;
+}
+
+.btn-logout:hover {
+    background-color: #003017;
+}
+
+
+/* Hero section con fondo */
+.hero {
+    position: relative; /* Necesario para que el icon-section se posicione respecto a este contenedor */
+    background: url('path/to/forest-background.jpg') no-repeat center center/cover;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5); /* Sombra interna */
+}
+
+.hero-content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin: 15px 0;
+    color: #555;
+}
+
+.join-button {
+    padding: 12px 25px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.join-button:hover {
+    background-color: #00401a; /* Hover verde */
+}
+
+/* Sección de características */
+.features {
+    display: flex;
+    justify-content: space-around;
+    background-color: #eaf7ea;  /* Fondo verde */
+    padding: 30px 0;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 0px;  /* Espacio para que la icon-section quede encima de esta */
+}
+
+.feature {
+    text-align: center;
+    font-size: 4em;
+    flex-basis: 30%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Sección de eventos */
+.events {
+    display: flex;
+    justify-content: space-between; /* Alinea las tarjetas sin espacio extra */
+    padding: 20px;
+    background-color: #f5f5f5;
+    flex-wrap: wrap;
+    margin-top: -100px !important; /* Ajusta según lo que necesites */
+}
+
+/* Estilo para las tarjetas de evento */
+.event {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    width: 220px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0; /* Eliminar márgenes adicionales */
+}
+
+.event img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Estilo para las columnas dentro de la fila */
+.events .row {
+    display: flex;
+    justify-content: space-between; /* Alinea las tarjetas */
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0;
+}
+
+.events .card {
+    margin: 0; /* Eliminar márgenes de las tarjetas */
+    width: 250px; /* Asegura que las tarjetas tengan un tamaño consistente */
+    height: 320px;
+    padding: 0; /* Ajusta el relleno si es necesario */
+}
+
+/* Contenedor principal del formulario */
+.container1 {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 600px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border: 3px solid #a3d9a5; /* Verde claro */
+    margin: 40px auto;
+}
+
+/* Título */
+.title {
+    font-size: 1.8em;
+    color: #00401a; /* Verde de botones */
+    margin-bottom: 20px;
+}
+
+/* Campos de formulario */
+.form-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-field i {
+    position: absolute;
+    left: 10px;
+    color: #a3d9a5; /* Verde claro */
+    cursor: pointer;
+}
+
+input, select, textarea {
+    padding: 10px 10px 10px 35px;
+    border: 2px solid #a3d9a5;
+    border-radius: 8px;
+    font-size: 1em;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #00401a; /* Verde de botones */
+}
+
+/* Tooltip */
+.tooltip-icon:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -30px;
+    left: 35px;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0.9em;
+}
+
+/* Botón de envío */
+button {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #3c6a3c; /* Verde más oscuro */
+}
+
+/* Footer */
+.footer {
+    background-color: #00401a;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.footer {
+    background-color: #00401a;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.footer .social-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.footer .social-links a:hover {
+    color: #a1c85e;
+}
+
+/* Estilo para los botones primarios */
+.btn-primary {
+    background-color: #00401a;
+    border-color: #00401a;
+}
+
+.btn-primary:hover {
+    background-color: #003016;
+    border-color: #003016;
+}
+
+/* Estilo para la navbar */
+.navbar-nav {
+    display: flex; /* Usamos flexbox para alineación */
+    justify-content: flex-end; /* Alineamos todo el contenido a la derecha */
+    gap: 5px;
+}
+
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center;  /* Alinea los elementos verticalmente dentro de la nav-item */
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.navbar-nav .nav-item2 {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff !important;
+}
+
+.navbar-nav .nav-link.text-white {
+    margin-right: 10px; /* Espacio entre el saludo y el botón de cerrar sesión */
+}
+
+/* Estilos personalizados para el botón Únete */
+.btn-join {
+    background-color: #006837;
+    color: #fff;
+    border: 2px solid #00401a;
+    font-size: 1.2rem;
+    padding: 14px 28px;
+    font-weight: bold;
+}
+
+.btn-join:hover {
+    background-color: #00401a;
+    color: #fff;
+    border-color: #003017;
+}
+
+/* Estilo jumbotron */
+.jumbotron-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.jumbotron-box h1,
+.jumbotron-box p {
+    color: #333;
+}
+
+.jumbotron {
+    padding-top: 200px;
+    padding-bottom: 180px;
+    color: white;
+}
+
+
+/* Sección de íconos y mensajes */
+.icon-section {
+    background-color: rgba(255, 255, 255); /* Fondo blanco translúcido */
+    border-radius: 0px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ocupa todo el ancho */
+    padding: 10px 0;
+    margin-bottom: 0px;
+    margin-top: 200px; /* Asegúrate de que el valor sea una unidad válida (px) */
+    z-index: 10;
+    opacity: 1;
+    transform: translateY(100px); /* Mueve la sección hacia abajo */
+    animation: slide-up 1s forwards; /* Añade la animación */
+}
+
+/* Animación para mover la sección hacia arriba */
+@keyframes slide-up {
+    0% {
+        transform: translateY(400px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-90px);
+        opacity: 1;
+    }
+}
+
+/* Caja de iconos */
+.icon-box {
+    display: flex;               /* Usamos Flexbox para alinear la imagen y el texto */
+    justify-content: center;     /* Centra el contenido horizontalmente */
+    align-items: center;         /* Centra el contenido verticalmente */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;          /* Centra el texto */
+}
+
+/* Efecto hover de la caja */
+.icon-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Iconos */
+.icon-box i {
+    font-size: 2.5rem;
+    color: #00401a;
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+}
+
+/* Imagen del icono */
+.icon-img {
+    width: 30px;  /* Ajusta el tamaño de la imagen */
+    height: 30px; /* Ajusta el tamaño de la imagen */
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+
+/* Párrafo */
+.icon-box p {
+    margin: 0; /* Elimina el margen por defecto del párrafo */
+}
+
+.large-text {
+    font-size: 1.5rem; /* Ajusta el tamaño según tus necesidades */
+}
+

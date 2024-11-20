@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario - ReforestApp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #eaf7ea;
+            color: #2d4a2d;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border: 3px solid #a3d9a5;
+        }
+
+        h2 {
+            color: #4f874f;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Botón de envío */
+        button {
+            background-color: #4f874f;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #3c6a3c;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 1em;
+        }
+
+        a {
+            color: #4f874f;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #3c6a3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registro de Usuario</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <p><a href="{% url 'login' %}">¿Ya tienes una cuenta? Inicia sesión aquí.</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Eventos</title>
+    {% load static %}  <!-- Asegúrate de que esta línea está aquí -->
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; right: 0; left: 0; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        // Obtener latitud y longitud desde Django
+        const lat = {{ lat }};
+        const lng = {{ lng }};
+        
+        var map = L.map('map', {
+            center: [lat, lng], // Usar las coordenadas pasadas desde Django
+            zoom: 12
+        });
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        // Crear el marcador en la ubicación del usuario
+        var userMarker = L.marker([lat, lng]).addTo(map);
+        userMarker.bindPopup("Tu ubicación").openPopup();
+
+        // Función para cargar y mostrar eventos
+        function cargarEventos(eventos) {
+            eventos.forEach(function(evento) {
+                var coords = evento.ubicacion.split(','); // Asumiendo que la ubicación está en formato 'lat,long'
+                var lat = parseFloat(coords[0]);
+                var lon = parseFloat(coords[1]);
+                L.marker([lat, lon]).addTo(map).bindPopup(evento.nombre);
+            });
+        }
+
+        // Cargar eventos desde Django
+        $(document).ready(function() {
+            var eventos = {{ eventos|safe }}; // Asumiendo que eventos se pasa desde Django
+            cargarEventos(eventos);
+        });
+    </script>
+</body>
+</html>

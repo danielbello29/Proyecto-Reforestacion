@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Evento de Reforestación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Barra de navegación sticky -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success sticky-top border-bottom">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'imagenes/logo.png' %}" alt="Reforest Logo" style="height: 60px; width: auto;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item {% if request.path == '/inicio/' %}active{% endif %}">
+                    <a class="nav-link text-white" href="{% url 'inicio' %}">Inicio</a>
+                </li>
+                <li class="nav-item dropdown {% if '/eventos' in request.path %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="eventsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Eventos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="eventsDropdown">
+                        <a class="dropdown-item {% if request.path == '/eventos/' %}active{% endif %}" href="{% url 'eventos' %}">Ver eventos</a>
+                        {% if user.is_authenticated and es_lider %}
+                            <a class="dropdown-item {% if request.path == '/eventos/crear-evento/' %}active{% endif %}" href="{% url 'crear_evento' %}">Crear eventos</a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="nav-item {% if request.path == '/eventos/mapa/' %}active{% endif %}">
+                    <a class="nav-link text-white" href="{% url 'mapa_eventos' %}">Mapa</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item d-flex align-items-center">
+                        <span class="nav-link text-white mr-3">Hola, {{ user.username }}!</span>
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-signup">Cerrar sesión</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item2">
+                        <a class="btn btn-signup" href="{% url 'register' %}">Registrarse</a>
+                    </li>
+                    <li class="nav-item2">
+                        <a class="btn btn-login" href="{% url 'login' %}">Iniciar Sesión</a>
+                    </li>
+                {% endif %}
+            </ul>            
+        </div>        
+    </nav>
+
+    <!-- Contenedor del formulario -->
+    <div class="container1">
+            <h1 class="title">Crear Evento de Reforestación</h1>
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Campos del formulario -->
+                <div class="form-field">
+                    <i class="fas fa-tree"></i>
+                    {{ form.nombre }}
+                </div>
+
+                <div class="form-field">
+                    <i class="fas fa-align-left"></i>
+                    {{ form.descripcion }}
+                </div>
+
+                <div class="form-field">
+                    <i class="fas fa-map-marker-alt tooltip-icon" data-tooltip="Introduce la ubicación en coordenadas, ej. 19.4326, -99.1332"></i>
+                    {{ form.ubicacion }}
+                </div>
+
+                <div class="form-field">
+                    <i class="fas fa-calendar-alt"></i>
+                    {{ form.fecha }}
+                </div>
+
+                <div class="form-field">
+                    <i class="fas fa-clock"></i>
+                    {{ form.hora }}
+                </div>
+
+                <div class="form-field">
+                    <i class="fas fa-users"></i>
+                    {{ form.max_participantes }}
+                </div>
+
+                <div class="form-field">
+                    <i class="fas fa-user-tie"></i>
+                    {{ form.lider }}
+                </div>
+
+                <!-- Botón de envío -->
+                <button type="submit">Crear Evento</button>
+            </form>
+            <!-- Mensaje para usuarios sin permisos -->
+            {% comment %} <p>No tienes permisos para acceder a esta página.</p> {% endcomment %}
+    </div>
+
+    <footer class="bg-success text-white text-center py-4">
+        <div class="container">
+            <p>© Ro-Forest 2024 - Todos los derechos reservados.</p>
+            <div>
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">LinkedIn</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

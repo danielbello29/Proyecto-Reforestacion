@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Eventos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <!-- Barra de navegación sticky -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success sticky-top border-bottom">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'imagenes/logo.png' %}" alt="Reforest Logo" style="height: 60px; width: auto;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <!-- Opción Inicio -->
+                <li class="nav-item {% if request.path == '/inicio/' %}active{% endif %}">
+                    <a class="nav-link text-white" href="{% url 'inicio' %}">Inicio</a>
+                </li>
+
+                <!-- Opción Eventos -->
+                <li class="nav-item dropdown {% if '/eventos' in request.path %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="eventsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Eventos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="eventsDropdown">
+                        <a class="dropdown-item {% if request.path == '/eventos/' %}active{% endif %}" href="{% url 'eventos' %}">Ver eventos</a>
+                        {% if user.is_authenticated and es_lider %}
+                            <a class="dropdown-item {% if request.path == '/eventos/crear-evento/' %}active{% endif %}" href="{% url 'crear_evento' %}">Crear eventos</a>
+                        {% endif %}
+                    </div>
+                </li>
+
+                <!-- Opción Mapa -->
+                <li class="nav-item {% if request.path == '/eventos/mapa/' %}active{% endif %}">
+                    <a class="nav-link text-white" href="{% url 'mapa_eventos' %}">Mapa</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item d-flex align-items-center">
+                        <span class="nav-link text-white mr-3">Hola, {{ user.username }}!</span>
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-signup">Cerrar sesión</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item2">
+                        <a class="btn btn-signup" href="{% url 'register' %}">Registrarse</a>
+                    </li>
+                    <li class="nav-item2">
+                        <a class="btn btn-login" href="{% url 'login' %}">Iniciar Sesión</a>
+                    </li>
+                {% endif %}
+            </ul>            
+        </div>        
+    </nav>
+    <!-- Sección principal -->
+    <div class="container my-5">
+        <h1 class="text-center">Lista de Eventos</h1>
+        <ul class="list-unstyled">
+            {% for evento in eventos %}
+                <li class="bg-white p-3 my-2 rounded shadow">
+                    <a href="{% url 'detalle_evento' evento.id %}" class="text-success font-weight-bold">{{ evento.nombre }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Solo mostrar el enlace de "Crear Evento" si el usuario es líder -->
+        {% if user.is_authenticated and es_lider %}
+            <a class="btn btn-success d-block mx-auto my-4" href="{% url 'crear_evento' %}">Crear Evento</a>
+        {% endif %}
+        
+        <a class="btn btn-outline-success d-block mx-auto" href="{% url 'inicio' %}">Regresar al inicio</a>  <!-- Enlace para regresar al inicio -->
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-success text-white text-center py-4">
+        <div class="container">
+            <p>© Ro-Forest 2024 - Todos los derechos reservados.</p>
+            <div>
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">LinkedIn</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

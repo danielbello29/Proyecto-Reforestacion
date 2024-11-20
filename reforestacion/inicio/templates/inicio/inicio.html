@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio - Reforestación</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> 
+</head>
+<body>
+
+    <!-- Barra de navegación sticky -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success sticky-top border-bottom">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'imagenes/logo.png' %}" alt="Reforest Logo" style="height: 60px; width: auto;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <!-- Opción Inicio -->
+                <li class="nav-item {% if request.path == '/inicio/' %}active{% endif %}">
+                    <a class="nav-link text-white" href="{% url 'inicio' %}">Inicio</a>
+                </li>
+
+                <!-- Opción Eventos -->
+                <li class="nav-item dropdown {% if '/eventos' in request.path %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="eventsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Eventos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="eventsDropdown">
+                        <a class="dropdown-item {% if request.path == '/eventos/' %}active{% endif %}" href="{% url 'eventos' %}">Ver eventos</a>
+                        {% if user.is_authenticated and es_lider %}
+                            <a class="dropdown-item {% if request.path == '/eventos/crear-evento/' %}active{% endif %}" href="{% url 'crear_evento' %}">Crear eventos</a>
+                        {% endif %}
+                    </div>
+                </li>
+
+                <!-- Opción Mapa -->
+                <li class="nav-item {% if request.path == '/eventos/mapa/' %}active{% endif %}">
+                    <a class="nav-link text-white" href="{% url 'mapa_eventos' %}">Mapa</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item d-flex align-items-center">
+                        <span class="nav-link text-white mr-3">Hola, {{ user.username }}!</span>
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-signup">Cerrar sesión</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item2">
+                        <a class="btn btn-signup" href="{% url 'register' %}">Registrarse</a>
+                    </li>
+                    <li class="nav-item2">
+                        <a class="btn btn-login" href="{% url 'login' %}">Iniciar Sesión</a>
+                    </li>
+                {% endif %}
+            </ul>            
+        </div>        
+    </nav>
+
+    <!-- Sección principal (Hero) -->
+    <div class="jumbotron jumbotron-fluid text-center text-white" style="background-image: url('{% static 'imagenes/bosquePrimavera.jpg' %}'); background-size: cover; background-position: center;">
+        <div class="jumbotron-box">
+            <h1 class="display-4">Planifica tu participación</h1>
+            <p class="lead">Descubre el evento de reforestación óptimo para ti.</p>
+            <p>Utiliza nuestro mapa interactivo, que evalúa la distancia, el tiempo y el número de participantes, para unirte a esta importante causa.</p>
+            <a href="{% url 'eventos' %}" class="btn btn-join btn-lg">Únete</a>
+        </div>
+    </div>
+
+    <!-- Sección de íconos y mensajes -->
+    <div class="container-fluid text-center my-4 icon-section">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <img src="{% static 'imagenes/retoño.png' %}" alt="Engranaje" class="icon-img">
+                    <i class="fas fa-tree fa-2x text-success"></i>
+                    <p>Adopta y planta un árbol</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <img src="{% static 'imagenes/city.png' %}" alt="city" class="icon-img">
+                    <i class="fas fa-city fa-2x text-success"></i>
+                    <p>Transforma la ciudad</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <img src="{% static 'imagenes/story.png' %}" alt="Engranaje" class="icon-img">
+                    <i class="fas fa-history fa-2x text-success"></i>
+                    <p>Sé parte de la historia</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de eventos -->
+    <div class="container my-5 events">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{% static 'imagenes/bosquePrimavera.jpg' %}" class="card-img-top" alt="Bosque La Primavera">
+                    <div class="card-body">
+                        <h5 class="card-title">Bosque La Primavera</h5>
+                        <p class="card-text">Evento de reforestación en un importante bosque de la región.</p>
+                        <a href="{% url 'detalle_evento' 3 %}" class="btn btn-primary">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{% static 'imagenes/metropolitano.jpg' %}" class="card-img-top" alt="Parque Metropolitano">
+                    <div class="card-body">
+                        <h5 class="card-title">Parque Metropolitano</h5>
+                        <p class="card-text">Únete para reforestar este popular parque urbano.</p>
+                        <a href="{% url 'detalle_evento' 1 %}" class="btn btn-primary">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{% static 'imagenes/centinela.jpg' %}" class="card-img-top" alt="Bosque El Centinela">
+                    <div class="card-body">
+                        <h5 class="card-title">Bosque El Centinela</h5>
+                        <p class="card-text">Contribuye a la reforestación de este hermoso bosque.</p>
+                        <a href="{% url 'detalle_evento' 2 %}" class="btn btn-primary">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{% static 'imagenes/morelos.jpg' %}" class="card-img-top" alt="Parque Morelos">
+                    <div class="card-body">
+                        <h5 class="card-title">Parque Morelos</h5>
+                        <p class="card-text">Participa en la restauración ecológica del parque.</p>
+                        <a href="{% url 'detalle_evento' 9 %}" class="btn btn-primary">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-success text-white text-center py-4">
+        <div class="container">
+            <p>© Ro-Forest 2024 - Todos los derechos reservados.</p>
+            <div>
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">LinkedIn</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Para los íconos de FontAwesome -->
+</body>
+</html>

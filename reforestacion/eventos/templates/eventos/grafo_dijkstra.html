@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de Dijkstra</title>
+</head>
+<body>
+    <h1>Resultados del Algoritmo de Dijkstra</h1>
+
+    <h2>Distancias desde la ubicación del usuario:</h2>
+    <ul>
+        {% for evento, distancia in distancias.items %}
+            <li>{{ evento }}: {{ distancia }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Caminos más cortos:</h2>
+    <ul>
+        {% for evento, camino in caminos.items %}
+            <li>{{ evento }}: {{ camino|join:", " }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Puntajes de los eventos:</h2>
+    <ul>
+        {% for evento, puntaje in puntajes.items %}
+            <li>{{ evento }}: {{ puntaje }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'eventos' %}">Volver a la lista de eventos</a>
+</body>
+</html>
